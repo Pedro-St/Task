@@ -1,19 +1,33 @@
 import React from "react";
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
+import moment from 'moment'
+import 'moment/locale/pt-br'
 
 
 import commomStyles from "../commomStyles";
 
+
 export default props => {
+    const doneOrNotStyle = props.doneAt != null ? {textDecorationLine: 'line-through'} : { }
+    
+    const date = props.doneAt? props.doneAt : props.estimateAt
+
+    const formatteddate = moment(date).locale('pt-br')
+        .format('ddd, D [de] MMMM')
+
     return (
         <View style={styles.container}>
-            <View style={styles.checkContainer}>
-                {getCheckView(props.doneAt)}
-            </View>
+            <TouchableWithoutFeedback
+                onPress={() => props.toggleTask(props.id)}>
+                <View style={styles.checkContainer}>
+                    {getCheckView(props.doneAt)}
+                </View>
+            </TouchableWithoutFeedback>
             <View>
-                <Text>{props.desc}</Text>
-                <Text>{props.estimateAt + ""}</Text>
+                <Text style={[styles.desc, doneOrNotStyle]}>{props.desc}</Text>
+                <Text style={styles.subText}>{formatteddate}</Text>
             </View>
             
         </View>
@@ -25,7 +39,7 @@ function getCheckView(doneAt) {
     if(doneAt !== null) {
         return (
             <View style={styles.done}>
-                <Icon name='check' size={20} color='#FFF'></Icon>
+                <Icon name='check' size={20} color='#fff'></Icon>
             </View>
         )
     } else {
@@ -63,6 +77,19 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
         borderRadius: 13,
-        backgroundColor: '#4D7031'
+        backgroundColor: '#4D7031',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    desc: {
+        fontFamily: commomStyles.fontFamily,
+        color: commomStyles.colors.mainText,
+        fontSize: 15,
+
+    },
+    date: {
+        fontFamily: commomStyles.fontFamily,
+        color: commomStyles.colors.subText,
+        fontSize: 12,
     }
 })

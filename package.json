@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.0.13",
     "@react-native-community/datetimepicker": "^7.6.0",
     "@react-native-masked-view/masked-view": "^0.2.9",
     "@react-navigation/drawer": "^6.6.4",
@@ -18,6 +19,7 @@
     "@react-navigation/stack": "^6.3.18",
     "axios": "^1.5.1",
     "moment": "^2.29.4",
+    "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-avatar-gravatar": "^0.0.4",
